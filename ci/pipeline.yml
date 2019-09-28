@@ -1,0 +1,16 @@
+---
+resources:
+- name: code-repo
+  type: git
+  source:
+    uri: git@gitlab.com:oozie/protobento.git
+    private_key: ((ci.bento/Notes/repo_key))
+    branch: master
+
+jobs:
+- name: bento-check
+  plan:
+  - get: code-repo
+    trigger: true
+  - task: run-bento
+    file: code-repo/ci/tasks/bento.yml
