@@ -32,5 +32,3 @@ run:
         bento check
       fi
     )
-    cp code-repo/.bento-baseline.yml bento-baseline
-

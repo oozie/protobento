@@ -34,3 +34,6 @@ jobs:
   - get: bento-baseline
   - task: run-bento
     file: code-repo/ci/tasks/bento.yml
+  - put: bento-baseline
+    params:
+      file: code-repo/.bento-baseline.yml
