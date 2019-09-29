@@ -26,7 +26,7 @@ run:
     (
       cd code-repo
       #  If bento-baseline is empty, establish baseline
-      if [ -s .bento-baseline.yml ]; then
+      if [ ! -s .bento-baseline.yml ]; then
         bento reset
       # Otherwise do the checking
       else
