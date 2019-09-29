@@ -22,12 +22,12 @@ run:
       git config --global user.email "oozie@ci"
       bento setup > /dev/null 2>&1
     )
-    # TODO: -eux
     cp bento-baseline/bento-baseline.yml code-repo/.bento-baseline.yml
     cp bento-config/bento.yml code-repo/.bento.yml
     (
       cd code-repo
       #  If bento-baseline is empty, establish baseline
+      set -eux
       if [ ! -s .bento-baseline.yml ]; then
         bento reset
       # Otherwise do the checking
