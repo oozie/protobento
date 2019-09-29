@@ -3,14 +3,34 @@ resources:
 - name: code-repo
   type: git
   source:
-    uri: git@gitlab.com:oozie/protobento.git
+    uri: git@github.com:oozie/protobento.git
     private_key: ((ci.bento/Notes/repo_key))
     branch: master
+
+- name: bento-baseline
+  type: s3
+  source:
+    bucket: ((ci.bento/Notes/aws_bucket))
+    versioned_file: bento-baseline.yml
+    access_key_id: ((ci.bento/Notes/aws_access))
+    secret_access_key: ((ci.bento/Notes/aws_secret))
+    region_name: ((ci.bento/Notes/aws_region))
+
+- name: bento-config
+  type: s3
+  source:
+    bucket: ((ci.bento/Notes/aws_bucket))
+    versioned_file: bento.yml
+    access_key_id: ((ci.bento/Notes/aws_access))
+    secret_access_key: ((ci.bento/Notes/aws_secret))
+    region_name: ((ci.bento/Notes/aws_region))
 
 jobs:
 - name: bento-check
   plan:
   - get: code-repo
     trigger: true
+  - get: bento-config
+  - get: bento-baseline
   - task: run-bento
     file: code-repo/ci/tasks/bento.yml

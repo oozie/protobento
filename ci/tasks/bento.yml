@@ -7,6 +7,10 @@ image_resource:
 params: []
 inputs:
   - name: code-repo
+  - name: bento-config
+  - name: bento-baseline
+outputs:
+  - name: bento-baseline
 run:
   path: /bin/bash
   args:
@@ -14,7 +18,19 @@ run:
   - |
     (
       cd code-repo
-      bento setup
-      bento check
+      bento setup > /dev/null 2>&1
     )
+    cp bento-baseline/bento-baseline.yml code-repo/.bento-baseline.yml
+    cp bento-config/bento.yml code-repo/.bento.yml
+    (
+      cd code-repo
+      #  If bento-baseline is empty, establish baseline
+      if [ -s .bento-baseline.yml ]; then
+        bento reset
+      # Otherwise do the checking
+      else
+        bento check
+      fi
+    )
+    cp code-repo/.bento-baseline.yml bento-baseline
 
