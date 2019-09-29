@@ -16,6 +16,7 @@ run:
   args:
   - -c
   - |
+    set -eux
     (
       cd code-repo
       git config --global user.name "oozie"
@@ -27,7 +28,6 @@ run:
     (
       cd code-repo
       #  If bento-baseline is empty, establish baseline
-      set -eux
       if [ ! -s .bento-baseline.yml ]; then
         bento reset
       # Otherwise do the checking
