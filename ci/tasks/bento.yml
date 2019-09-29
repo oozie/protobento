@@ -20,6 +20,7 @@ run:
       cd code-repo
       bento setup > /dev/null 2>&1
     )
+    # TODO: -eux
     cp bento-baseline/bento-baseline.yml code-repo/.bento-baseline.yml
     cp bento-config/bento.yml code-repo/.bento.yml
     (
@@ -32,3 +33,4 @@ run:
         bento check
       fi
     )
+    cp code-repo/.bento-baseline.yml bento-baseline/bento-baseline.yml
