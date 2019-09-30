@@ -37,3 +37,44 @@ jobs:
   - put: bento-baseline
     params:
       file: bento-baseline/bento-baseline.yml
+
+- name: deploy
+  plan:
+  - get: code-repo
+    trigger: true
+    passed: [ bento-check ]
+  - task: do-deployment
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: oozie/r2c-bento
+      run:
+        path: bash
+        args:
+        - -c
+        - |
+          echo deploying...
+
+
+- name: reset-baseline
+  plan:
+  - task: zero-out-baseline
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: oozie/r2c-bento
+      outputs:
+        - name: bento-baseline
+      run:
+        path: bash
+        args:
+        - -c
+        - |
+          echo -n > bento-baseline/bento-baseline.yml
+  - put: bento-baseline
+    params:
+      file: bento-baseline/bento-baseline.yml
