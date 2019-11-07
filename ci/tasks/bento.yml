@@ -21,7 +21,7 @@ run:
       cd code-repo
       git config --global user.name "oozie"
       git config --global user.email "oozie@ci"
-      bento init
+      bento --agree init
     )
     cp bento-baseline/bento-baseline.yml code-repo/.bento-baseline.yml
     cp bento-config/bento.yml code-repo/.bento.yml
@@ -29,10 +29,10 @@ run:
       cd code-repo
       #  If bento-baseline is empty, establish baseline
       if [ ! -s .bento-baseline.yml ]; then
-        bento reset
+        bento --agree reset
       # Otherwise do the checking
       else
-        bento check
+        bento --agree check
       fi
     )
     cp code-repo/.bento-baseline.yml bento-baseline/bento-baseline.yml
