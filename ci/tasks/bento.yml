@@ -17,15 +17,13 @@ run:
   - -c
   - |
     set -eux
-    (
-      cd code-repo
-      git config --global user.name "oozie"
-      git config --global user.email "oozie@ci"
-      bento --agree init
-    )
+    git config --global user.name "oozie"
+    git config --global user.email "oozie@ci"
     cp bento-baseline/bento-baseline.yml code-repo/.bento-baseline.yml
     cp bento-config/bento.yml code-repo/.bento.yml
     (
+      cd code-repo
+      bento --agree init
       cd code-repo
       #  If bento-baseline is empty, establish baseline
       if [ ! -s .bento-baseline.yml ]; then
