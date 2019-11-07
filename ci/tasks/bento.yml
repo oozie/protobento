@@ -21,7 +21,7 @@ run:
       cd code-repo
       git config --global user.name "oozie"
       git config --global user.email "oozie@ci"
-      bento setup > /dev/null 2>&1
+      bento init > /dev/null 2>&1
     )
     cp bento-baseline/bento-baseline.yml code-repo/.bento-baseline.yml
     cp bento-config/bento.yml code-repo/.bento.yml
